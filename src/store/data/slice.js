@@ -15,11 +15,15 @@ export const dataSlice = createSlice({
       state.spaces = [...action.payload]; // get our list of posts from the action payload
       // console.log(state.spaces);
     },
+    getStoriesOfSpace: (state, action) => {
+      //console.log("postsFetched action", action.payload);
+      state.spaceDetails = { ...action.payload };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 // as we add cases to our reducer we will also export the corresponding actions
-export const { dataFetched } = dataSlice.actions;
+export const { dataFetched, getStoriesOfSpace } = dataSlice.actions;
 
 export default dataSlice.reducer;

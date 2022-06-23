@@ -1,0 +1,26 @@
+.storiesHeader {
+  display: flex;
+  font-size: 70;
+  color: cornflowerblue;
+  justify-content: center;
+}
+
+.stories {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.story {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  border: 1px;
+  width: 600px;
+}
+.storiesHeaderDetails {
+  font-size: 30;
+  color: cornflowerblue;
+  display: flex;
+  justify-content: center;
+}

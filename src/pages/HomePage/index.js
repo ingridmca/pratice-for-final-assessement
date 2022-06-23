@@ -6,7 +6,7 @@ import { selectSpaces } from "../../store/data/selector";
 import HeroBanner from "../../components/HeroBanner";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const HomePage = () => {
   const dispatch = useDispatch();
   const spaces = useSelector(selectSpaces);
 
@@ -27,8 +27,8 @@ const Home = () => {
             <div
               key={space.id}
               style={{
-                backgroundColor: space.color,
-                color: space.backgroundColor,
+                backgroundColor: space.backgroundColor,
+                color: space.color,
                 marginBottom: "15px",
               }}
             >
@@ -46,4 +46,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default HomePage;
