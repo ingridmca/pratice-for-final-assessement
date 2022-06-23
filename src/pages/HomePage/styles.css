@@ -1,0 +1,22 @@
+.spaceHeader {
+  display: flex;
+  font-size: 70;
+  color: cornflowerblue;
+  justify-content: center;
+}
+
+.spacesGroup {
+  display: flex;
+
+  align-items: center;
+  flex-direction: column;
+}
+
+.spaces {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  margin-top: 30px;
+  border: 1px;
+  width: 600px;
+}
