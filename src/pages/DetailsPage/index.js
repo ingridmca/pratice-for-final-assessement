@@ -1,19 +1,26 @@
 import "./styles.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import HeroBanner from "../../components/HeroBanner";
-import { selectDetails } from "../../store/data/selector";
-import { fetchStoriesData } from "../../store/data/thunk";
+import { selectDetails, selectUserProfile } from "../../store/data/selector";
+import { deleteStory, fetchStoriesData } from "../../store/data/thunk";
+import PostStory from "../../components/PostStory";
 
 const DetailsPage = () => {
   const dispatch = useDispatch();
   const routeParameters = useParams();
   const detailsStories = useSelector(selectDetails);
+  const userProfile = useSelector(selectUserProfile);
+
+  const [postButton, setPostButton] = useState(false);
 
   useEffect(() => {
     dispatch(fetchStoriesData(routeParameters));
   }, [dispatch, routeParameters]);
+
+  const userId = userProfile ? userProfile.id : 0;
+  const storiesPageId = detailsStories ? detailsStories.id : -1;
 
   return (
     <div
@@ -32,6 +39,19 @@ const DetailsPage = () => {
           {!detailsStories ? "Loading" : detailsStories.description}
         </div>
       </HeroBanner>
+      {userId === storiesPageId && (
+        <div>
+          <button onClick={() => setPostButton(!postButton)}>
+            Post a cool story bro
+          </button>
+          {postButton && (
+            <div>
+              <PostStory />
+            </div>
+          )}
+        </div>
+      )}
+
       {!detailsStories ? (
         "Loading"
       ) : (
@@ -50,6 +70,17 @@ const DetailsPage = () => {
                     width={300}
                   />
                 </div>
+                {userId === storiesPageId && (
+                  <div>
+                    <button
+                      onClick={() =>
+                        dispatch(deleteStory(story.id, routeParameters))
+                      }
+                    >
+                      Delete Story
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
         </div>

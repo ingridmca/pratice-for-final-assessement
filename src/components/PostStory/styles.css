@@ -1,0 +1,13 @@
+/* The popup form - hidden by default */
+.form-popup {
+  display: flex;
+  justify-content: center;
+  border: 3px solid #f1f1f1;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-story-label {
+  min-width: 100px;
+  margin-top: 10px;
+}

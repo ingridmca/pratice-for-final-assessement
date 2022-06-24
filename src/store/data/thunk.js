@@ -25,3 +25,15 @@ export const fetchStoriesData = (id) => async (dispatch, getState) => {
     console.log(e.message);
   }
 };
+
+export const deleteStory = (storyId, spaceId) => async (dispatch, getState) => {
+  try {
+    await axios.delete(`${API_URL}/story/${storyId}`);
+    //console.log("response", response.data);
+
+    //dispatch the fetch data Stories que esta no banco--- requisita o GET
+    dispatch(fetchStoriesData(spaceId));
+  } catch (e) {
+    console.log(e.message);
+  }
+};

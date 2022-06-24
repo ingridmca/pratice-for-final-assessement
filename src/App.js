@@ -15,12 +15,6 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 //import HeroBanner from "./components/HeroBanner";
 
-// const Other = () => (
-//   <HeroBanner>
-//     <h1>Other</h1>
-//   </HeroBanner>
-// );
-
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
