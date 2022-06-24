@@ -107,7 +107,6 @@ export const getUserWithStoredToken = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // token is still valid
       dispatch(tokenStillValid({ user: response.data.user }));
       dispatch(appDoneLoading());
     } catch (error) {

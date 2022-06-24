@@ -46,7 +46,10 @@ const DetailsPage = () => {
           </button>
           {postButton && (
             <div>
-              <PostStory />
+              <PostStory
+                spaceId={storiesPageId}
+                setPostButton={setPostButton}
+              />
             </div>
           )}
         </div>

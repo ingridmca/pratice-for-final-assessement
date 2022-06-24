@@ -1,23 +1,41 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { showMessageWithTimeout } from "../../store/appState/actions";
+import { selectToken } from "../../store/data/selector";
+import { postStory } from "../../store/data/thunk";
 import "./styles.css";
 
-const PostStory = () => {
+const PostStory = (props) => {
   const dispatch = useDispatch();
+  const userInfo = useSelector(selectToken);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
+  const spaceId = props.spaceId;
+
   function subimitStory(event) {
     event.preventDefault();
-
-    // dispatch(thunkW/post request (name, description, imageUrl))
-    setDescription("");
-    setImageUrl("");
-    setName("");
+    const token = userInfo ? userInfo.token : false;
+    if (name.length === 0) {
+      return dispatch(
+        showMessageWithTimeout(
+          "fail",
+          false,
+          "Your Story need to have a Name",
+          1500
+        )
+      );
+    } else {
+      props.setPostButton(false);
+      dispatch(postStory(name, description, imageUrl, token, spaceId));
+      dispatch(showMessageWithTimeout("success", false, "Story Posted", 1500));
+      setDescription("");
+      setImageUrl("");
+      setName("");
+    }
   }
-
-  console.log(imageUrl);
 
   return (
     <div className="form-popup">
@@ -61,7 +79,7 @@ const PostStory = () => {
             )}
           </div>
         </div>
-        <button type="submit" style={{ marginTop: 20 }}>
+        <button type="submit" style={{ marginTop: 20 }} onClick={subimitStory}>
           Submit
         </button>
       </form>

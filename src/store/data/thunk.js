@@ -37,3 +37,24 @@ export const deleteStory = (storyId, spaceId) => async (dispatch, getState) => {
     console.log(e.message);
   }
 };
+
+export const postStory =
+  (name, content, imageUrl, token, spaceId) => async (dispatch, getState) => {
+    try {
+      await axios.post(
+        `${API_URL}/story/`,
+        {
+          name: name,
+          content: content,
+          imageUrl: imageUrl,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const id = { id: spaceId };
+
+      dispatch(fetchStoriesData(id));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
