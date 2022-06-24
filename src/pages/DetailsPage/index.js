@@ -24,22 +24,24 @@ const DetailsPage = () => {
   const userId = userProfile ? userProfile.id : 0;
   const storiesPageId = detailsStories ? detailsStories.id : -1;
 
+  //Checking if all data is fetched
+  if (!detailsStories) return <div>Loading...</div>;
+
+  //Sort feature!
+  const sortedStories = [...detailsStories.stories].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
   return (
     <div
       style={{
-        backgroundColor: detailsStories
-          ? detailsStories.backgroundColor
-          : "#F0FFFF",
-        color: detailsStories ? detailsStories.color : "#F0FFFF",
+        backgroundColor: detailsStories.backgroundColor,
+        color: detailsStories.color,
       }}
     >
       <HeroBanner>
-        <h1 className="storiesHeader">
-          {!detailsStories ? "Loading" : detailsStories.title}
-        </h1>
-        <div className="storiesHeaderDetails">
-          {!detailsStories ? "Loading" : detailsStories.description}
-        </div>
+        <h1 className="storiesHeader">{detailsStories.title}</h1>
+        <div className="storiesHeaderDetails">{detailsStories.description}</div>
       </HeroBanner>
       {userId === storiesPageId && (
         <div>
@@ -68,39 +70,35 @@ const DetailsPage = () => {
         </div>
       )}
 
-      {!detailsStories ? (
-        "Loading"
-      ) : (
+      {
         <div className="stories">
-          {[...detailsStories.stories]
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .map((story) => (
-              <div key={story.id}>
-                <div className="story">{story.name}</div>
-                <div className="story">{story.content}</div>
-                <div className="story">
-                  <img
-                    src={story.imageUrl}
-                    alt={story.name}
-                    height={200}
-                    width={300}
-                  />
-                </div>
-                {userId === storiesPageId && (
-                  <div>
-                    <button
-                      onClick={() =>
-                        dispatch(deleteStory(story.id, routeParameters))
-                      }
-                    >
-                      Delete Story
-                    </button>
-                  </div>
-                )}
+          {sortedStories.map((story) => (
+            <div key={story.id}>
+              <div className="story">{story.name}</div>
+              <div className="story">{story.content}</div>
+              <div className="story">
+                <img
+                  src={story.imageUrl}
+                  alt={story.name}
+                  height={200}
+                  width={300}
+                />
               </div>
-            ))}
+              {userId === storiesPageId && (
+                <div>
+                  <button
+                    onClick={() =>
+                      dispatch(deleteStory(story.id, routeParameters))
+                    }
+                  >
+                    Delete Story
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+      }
     </div>
   );
 };

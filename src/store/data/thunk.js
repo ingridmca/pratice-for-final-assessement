@@ -14,17 +14,19 @@ export const fetchSpaceData = () => async (dispatch, getState) => {
   }
 };
 
-export const fetchStoriesData = (id) => async (dispatch, getState) => {
-  //  console.log("id", id.id);
-  try {
-    const response = await axios.get(`${API_URL}/story/${id.id}`);
-    //console.log("response", response.data);
-    const story = response.data;
-    dispatch(getStoriesOfSpace(story));
-  } catch (e) {
-    console.log(e.message);
-  }
-};
+export const fetchStoriesData =
+  ({ id }) =>
+  async (dispatch, getState) => {
+    //  console.log("id", id.id);
+    try {
+      const response = await axios.get(`${API_URL}/story/${id}`);
+      //console.log("response", response.data);
+      const story = response.data;
+      dispatch(getStoriesOfSpace(story));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
 export const deleteStory = (storyId, spaceId) => async (dispatch, getState) => {
   try {
@@ -33,6 +35,8 @@ export const deleteStory = (storyId, spaceId) => async (dispatch, getState) => {
 
     //dispatch the fetch data Stories que esta no banco--- requisita o GET
     dispatch(fetchStoriesData(spaceId));
+
+    // dispatch => removes this story from the state (storyId)
   } catch (e) {
     console.log(e.message);
   }
@@ -47,6 +51,7 @@ export const postStory =
           name: name,
           content: content,
           imageUrl: imageUrl,
+          spaceId,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -54,6 +59,7 @@ export const postStory =
       const id = { id: spaceId };
 
       dispatch(fetchStoriesData(id));
+      //
     } catch (e) {
       console.log(e.message);
     }
