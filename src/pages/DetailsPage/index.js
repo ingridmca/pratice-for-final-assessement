@@ -6,6 +6,7 @@ import HeroBanner from "../../components/HeroBanner";
 import { selectDetails, selectUserProfile } from "../../store/data/selector";
 import { deleteStory, fetchStoriesData } from "../../store/data/thunk";
 import PostStory from "../../components/PostStory";
+import EditMySpace from "../../components/EditMySpace";
 
 const DetailsPage = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const DetailsPage = () => {
   const userProfile = useSelector(selectUserProfile);
 
   const [postButton, setPostButton] = useState(false);
+  const [editButton, setEditButton] = useState(false);
 
   useEffect(() => {
     dispatch(fetchStoriesData(routeParameters));
@@ -44,11 +46,22 @@ const DetailsPage = () => {
           <button onClick={() => setPostButton(!postButton)}>
             Post a cool story bro
           </button>
+          <button onClick={() => setEditButton(!editButton)}>
+            Edit My Space
+          </button>
           {postButton && (
             <div>
               <PostStory
                 spaceId={storiesPageId}
                 setPostButton={setPostButton}
+              />
+            </div>
+          )}
+          {editButton && (
+            <div>
+              <EditMySpace
+                spaceId={storiesPageId}
+                setEditButton={setEditButton}
               />
             </div>
           )}

@@ -58,3 +58,26 @@ export const postStory =
       console.log(e.message);
     }
   };
+
+export const putSpace =
+  (title, description, backgroundColor, color, token, spaceId) =>
+  async (dispatch, getState) => {
+    try {
+      await axios.put(
+        `${API_URL}/space/`,
+        {
+          title: title,
+          description: description,
+          backgroundColor: backgroundColor,
+          color: color,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const id = { id: spaceId };
+
+      dispatch(fetchStoriesData(id));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };

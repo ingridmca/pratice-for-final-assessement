@@ -48,6 +48,7 @@ const PostStory = (props) => {
           <input
             type="text"
             name="Name"
+            value={name}
             onChange={(event) => setName(event.target.value)}
             required
           />
@@ -59,6 +60,7 @@ const PostStory = (props) => {
           <input
             type="text"
             name="Description"
+            value={description}
             onChange={(event) => setDescription(event.target.value)}
             required
           />
@@ -70,6 +72,7 @@ const PostStory = (props) => {
           <input
             type="text"
             name="Image"
+            value={imageUrl}
             onChange={(event) => setImageUrl(event.target.value)}
             required
           ></input>
